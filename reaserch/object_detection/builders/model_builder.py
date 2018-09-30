@@ -228,11 +228,12 @@ def _build_faster_rcnn_model(frcnn_config, is_training):
   feature_extractor = _build_faster_rcnn_feature_extractor(
       frcnn_config.feature_extractor, is_training)
 
-  first_stage_only = frcnn_config.first_stage_only
+  #first_stage_only = frcnn_config.first_stage_only
+  first_stage_only = False
   first_stage_anchor_generator = anchor_generator_builder.build(
       frcnn_config.first_stage_anchor_generator)
 
-  first_stage_atrous_rate = frcnn_config.first_stage_atrous_rate
+  first_stage_atrous_rate = 1
   first_stage_box_predictor_arg_scope = hyperparams_builder.build(
       frcnn_config.first_stage_box_predictor_conv_hyperparams, is_training)
   first_stage_box_predictor_kernel_size = (
