@@ -104,6 +104,8 @@ def get_evaluators(eval_config, categories):
     ValueError: if metric is not in the metric class dictionary.
   """
   eval_metric_fn_key = eval_config.metrics_set
+  print("EVAL_METRICS_CLASS_DICT:",EVAL_METRICS_CLASS_DICT)
+  print("eval_metric_fn_key:",eval_metric_fn_key)
   if eval_metric_fn_key not in EVAL_METRICS_CLASS_DICT:
     raise ValueError('Metric not found: {}'.format(eval_metric_fn_key))
   return [
