@@ -17,7 +17,7 @@ checkpoint_dir=$train_dir
 eval_dir=$output_dir/eval
 
 # config文件
-config=faster_rcnn_resnet101_voc_12.config
+config=faster_rcnn_resnet101_voc07.config
 pipeline_config_path=$output_dir/$config
 
 # 先清空输出目录，本地运行会有效果，tinymind上运行这一行没有任何效果
@@ -32,7 +32,7 @@ do
     echo "############" $i "runnning #################"
     last=$[$i*590]
     current=$[($i+1)*590]
-    # sed -i "s/^  num_steps: $last$/  num_steps: $current/g" $pipeline_config_path  # 通过num_steps控制一次训练最多100step
+    sed -i "s/^  num_steps: $last$/  num_steps: $current/g" $pipeline_config_path  # 通过num_steps控制一次训练最多100step
 
     echo "############" $i "training #################"
     python ./object_detection/train.py --train_dir=$train_dir --pipeline_config_path=$pipeline_config_path
