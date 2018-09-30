@@ -38,6 +38,7 @@ EVAL_METRICS_CLASS_DICT = {
         object_detection_evaluation.OpenImagesDetectionEvaluator
 }
 
+EVAL_DEFAULT_METRIC = 'pascal_voc_metrics'
 
 def _extract_prediction_tensors(model,
                                 create_input_dict_fn,
@@ -103,9 +104,12 @@ def get_evaluators(eval_config, categories):
   Raises:
     ValueError: if metric is not in the metric class dictionary.
   """
-  eval_metric_fn_key = eval_config.metrics_set[0]
-  print("EVAL_METRICS_CLASS_DICT:",EVAL_METRICS_CLASS_DICT)
-  print("eval_metric_fn_key:",eval_metric_fn_key)
+  eval_metric_fn_keys = eval_config.metrics_set
+  if not eval_metric_fn_keys:
+    eval_metric_fn_key = EVAL_DEFAULT_METRIC
+  else:
+    eval_metric_fn_key = eval_metric_fn_keys[0]
+  
   if eval_metric_fn_key not in EVAL_METRICS_CLASS_DICT:
     raise ValueError('Metric not found: {}'.format(eval_metric_fn_key))
   return [
